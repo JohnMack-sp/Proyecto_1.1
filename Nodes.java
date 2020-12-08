@@ -6,24 +6,23 @@ public class Nodes
 	private int length = 0;  
 	private boolean empty = true; 
 	
-	public void addElement()
+	public void addElement(int n)
 	{
-		int number = 0; 
 		Vertice node; 
 		if(firstNode == null)
 		{
 			firstNode = new Vertice(); 
-			firstNode.putNumber(1);		
+			firstNode.putNumber(n);
 			lastNode = firstNode; 
 			length += 1;
 			empty = false; 
 		}
 		else 
 		{
-			node = new Vertice(); 
-			number = lastNode.getNumber();			
-			node.putNumber(number+1);
+			node = new Vertice(); 	
+			node.putNumber(n);
 			lastNode.addNextNode(node);
+			node.addLastNode(lastNode);
 			lastNode = node; 
 			length += 1;
 		}

@@ -20,7 +20,7 @@ public class ErdNerGenerator
 		//Generación de nodos
 		for(int i=0;i<n;i++)
 		{
-			nodes.addElement();
+			nodes.addElement(i+1);
 		}
 		//Generación de aristas
 
@@ -44,7 +44,8 @@ public class ErdNerGenerator
 			edges.addElement(n1, n2);
 			v = nodes.findElement(n1); 
 			v.addConnetion(n2);
-
+			v = nodes.findElement(n2); 
+			v.addConnetion(n1);
 
 		}
 

@@ -22,7 +22,7 @@ public class GilbertGenerator
 		//Generación de nodos
 		for(int i=0;i<n;i++)
 		{
-			nodes.addElement();
+			nodes.addElement(i+1);
 		}
 		
 		//Generacion de aristas		

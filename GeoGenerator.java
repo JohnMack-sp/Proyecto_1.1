@@ -20,7 +20,7 @@ public class GeoGenerator
 		//Generación de nodos
 		for(int i=0;i<n;i++)
 		{
-			nodes.addElement();
+			nodes.addElement(i+1);
 			x = r1.nextFloat();
 			y = r1.nextFloat(); 
 			if(i == 0)

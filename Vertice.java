@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Vertice 
 {
 	private int number;			// El numero del nodo
-	private Vertice nextNode; 
+	private Vertice nextNode;   //Conexion al siguiente nodo
+	private Vertice lastNode;	//Conexion al ancestro
 	private ArrayList<Integer> connections = new ArrayList<Integer>(); 
 	
 	public void addConnetion(Integer node)
@@ -22,6 +23,11 @@ public class Vertice
 		this.nextNode = nextNode;  
 	}
 	
+	public void addLastNode(Vertice lastNode)
+	{
+		this.lastNode = lastNode;  
+	}
+	
 		
 	public Integer getNumber()
 	{
@@ -31,6 +37,11 @@ public class Vertice
 	{
 		return nextNode; 
 	}
+	public Vertice getLastNode()
+	{
+		return lastNode; 
+	}
+	
 	public  ArrayList<Integer> getConnetions()
 	{
 		return connections;
