@@ -1,5 +1,6 @@
 
-public class Prueba {
+public class Prueba
+{
 
 	public static void main(String[] args) 
 	{
@@ -7,20 +8,17 @@ public class Prueba {
 		 GilbertGenerator g2 = new GilbertGenerator();
 		 GeoGenerator g3 = new GeoGenerator(); 
 		 BarabasiGen g4 = new BarabasiGen();
-		 PruebaEscritura pes = new PruebaEscritura(); 
+		 Escritura pes = new Escritura(); 
 		 Vertice s; 
-		 Grafo grafo1,grafo2,grafo3,grafo4,g1BFS,g1DFS,g1DFSr; 
-		 Grafo g2BFS,g2DFS,g2DFSr,g3BFS,g3DFS,g3DFSr,g4BFS,g4DFS,g4DFSr; 
-		 int n = 30; 
-		 grafo1 = g1.generate(n,100); 		 
-		 //grafo1.printNodes();
-		 //grafo1.printEdges();		 
+		 Grafo grafo1,grafo2,grafo3,grafo4,g1MST,g2MST,g3MST,g4MST; 
 		
-		 grafo2 = g2.generate(n,0.2);		 
+		 int n = 30,maxW=10; 
+		 grafo1 = g1.generate(n,30); 		 
+		 grafo2 = g2.generate(n,0.5);		 
 		 //grafo2.printNodes();
 		 //grafo2.printEdges();
 		 
-		 grafo3 = g3.generate(n,0.2);
+		 grafo3 = g3.generate(n,0.5);
 		 //grafo3.printNodes();
 		 //grafo3.printEdges();
 		 
@@ -28,46 +26,33 @@ public class Prueba {
 		 //grafo4.printNodes();
 		 //grafo4.printEdges();
 		 
-		 s=grafo1.getNodes().getFirstNode(); 			 
-		 g1BFS = grafo1.BFS(s);		 
-		 g1DFS = grafo1.DFS(s);	
-		 g1DFSr = grafo1.DFSr(s); 
+		 grafo1.randWeights(maxW); //Generación de pesos aleatorios
+		 s = grafo1.getNodes().findElement(3); 
+		 g1MST= grafo1.Dijkstra(s,maxW); 
 		 
-		 s=grafo2.getNodes().getFirstNode(); 			 
-		 g2BFS = grafo2.BFS(s);		 
-		 g2DFS = grafo2.DFS(s);	
-		 g2DFSr = grafo2.DFSr(s); 
+		 grafo2.randWeights(maxW); //Generación de pesos aleatorios
+		 s = grafo2.getNodes().findElement(3); 
+		 g2MST= grafo2.Dijkstra(s,maxW); 
+		 
+		 grafo3.randWeights(maxW); //Generación de pesos aleatorios
+		 s = grafo3.getNodes().findElement(3); 
+		 g3MST= grafo3.Dijkstra(s,maxW); 
+		 
+		 grafo4.randWeights(maxW); //Generación de pesos aleatorios
+		 s = grafo4.getNodes().findElement(3); 
+		 g4MST= grafo4.Dijkstra(s,maxW); 
 		
+		 pes.generate("grafo1_30.dot",grafo1.getNodes()); 
+		 pes.generate("G1mst_30.dot", g1MST.getNodes());
 		 
-		 s=grafo3.getNodes().getFirstNode(); 			 
-		 g3BFS = grafo3.BFS(s);		 
-		 g3DFS = grafo3.DFS(s);	
-		 g3DFSr = grafo3.DFSr(s); 
+		 pes.generate("grafo2_30.dot",grafo2.getNodes()); 
+		 pes.generate("G2mst_30.dot", g2MST.getNodes());
 		 
-		 s=grafo4.getNodes().getFirstNode(); 			 
-		 g4BFS = grafo4.BFS(s);		 
-		 g4DFS = grafo4.DFS(s);	
-		 g4DFSr = grafo4.DFSr(s); 
-		
-		 pes.generate("grafo1_30bfs.dot",g1BFS.getNodes()); 
-		 pes.generate("grafo1_30dfs.dot",g1DFS.getNodes()); 
-		 pes.generate("grafo1_30dfsr.dot",g1DFSr.getNodes()); 
+		 pes.generate("grafo3_30.dot",grafo3.getNodes()); 
+		 pes.generate("G3mst_30.dot", g3MST.getNodes());
 		 
-		 pes.generate("grafo2_30.dot",grafo2.getNodes());
-		 pes.generate("grafo2_30bfs.dot",g2BFS.getNodes()); 
-		 pes.generate("grafo2_30dfs.dot",g2DFS.getNodes()); 
-		 pes.generate("grafo2_30dfsr.dot",g2DFSr.getNodes()); 
-		 
-		 pes.generate("grafo3_30.dot",grafo3.getNodes());
-		 pes.generate("grafo3_30bfs.dot",g3BFS.getNodes()); 
-		 pes.generate("grafo3_30dfs.dot",g3DFS.getNodes()); 
-		 pes.generate("grafo3_30dfsr.dot",g3DFSr.getNodes()); 
-		 
-		 pes.generate("grafo4_30.dot",grafo4.getNodes());
-		 pes.generate("grafo4_30bfs.dot",g4BFS.getNodes()); 
-		 pes.generate("grafo4_30dfs.dot",g4DFS.getNodes()); 
-		 pes.generate("grafo4_30dfsr.dot",g4DFSr.getNodes()); 
-		 
+		 pes.generate("grafo4_30.dot",grafo4.getNodes()); 
+		 pes.generate("G4mst_30.dot", g4MST.getNodes());
 		
 	}
 

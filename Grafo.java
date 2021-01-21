@@ -1,5 +1,7 @@
+import java.security.SecureRandom;
 import java.util.ArrayList;
-
+import java.util.PriorityQueue;
+import java.util.Queue;
 // Clase Grafo que contiene las variables de instancia nodes y edges
 public class Grafo 
 {
@@ -263,5 +265,169 @@ public class Grafo
 		}
 		
 	}
-	  
+	
+	public void randWeights(int maxValue)
+	{
+		//Creación de un objeto tipo arista
+		Arista edge = null; 
+		SecureRandom r = new SecureRandom(); 
+		int w; 
+		if(edges==null)
+		{
+			System.out.printf("El grafo no contiene aristas"); 
+		}
+		else 
+		{
+			edge = edges.getFirstEdge(); 
+			while(edge!=null)
+			{
+				w = 1+r.nextInt(maxValue);
+				edge.addWeight(w);
+				edge=edge.getNextEdge(); 
+			}
+		}
+	
+	}
+	
+	public void printWeights()
+	{
+		int l = 0; 
+		Arista edge;
+		int [] v; 
+		float w=0; 
+		if(edges != null)
+		{
+			if(!edges.empty())
+			{
+				l = edges.size(); 
+				edge = edges.getFirstEdge(); 
+				for(int i = 0;i < l; i++)
+				{
+					v = edge.getVertice(); 
+					w = edge.getWeight(); 
+					System.out.printf("(%d,%d) w=%f\t",v[0],v[1],w);
+					edge = edge.getNextEdge(); 
+				}
+				System.out.println();
+			}
+			else
+			{
+				System.out.print("No hay aristas\n");
+			}
+		}
+		else
+		{
+			System.out.printf("El grafo no se ha generado"); 
+		}
+	}
+	
+	public Grafo Dijkstra(Vertice s,int maxValue)
+	{
+		//Creacion del grafo a entregar
+		Grafo Gmst = new Grafo(); 
+		Gmst.generate(); 
+		ArrayList<Integer> S = new ArrayList<Integer>();
+		ArrayList<Integer> addedNodes = new ArrayList<Integer>(); 
+		ArrayList<Integer> connections; 
+		Queue<Vertice> q = new PriorityQueue<Vertice>();
+		Vertice currentNode,v,up,vp;
+		Arista e; 
+		int w,du,dv,le,inf,n,node;
+		
+		currentNode = nodes.getFirstNode();
+		inf = maxValue*edges.size(); 
+		
+		while(currentNode!=null)
+		{
+			currentNode.addPriority(inf+1);
+			q.add(currentNode); 
+			currentNode = currentNode.getNextNode(); 
+		}
+		
+		s.addPriority(0); // Fija la prioridad del nodo fuente a cero 		
+		q.remove(s);	 //Lo remuevo de la cola 
+		q.add(s); 		//Actualizo su valor
+		S.clear(); 		//Inicializo al conjunto cero con el conjunto vacio
+		System.out.printf("Ultimo nodo %d p = %d \n",nodes.getLastNode().getNumber(),nodes.getLastNode().getPriority()); 
+		for(Vertice c:q)
+		{
+			System.out.printf("n=%d p=%d  ",c.getNumber(),c.getPriority()); 
+		}
+		System.out.println();
+		 while (!q.isEmpty()) 
+		 {
+			    System.out.printf("last node=%d\n",nodes.getLastNode().getPriority()); 
+			 	currentNode = q.remove(); //Retiro el primer elemento de la cola
+	            System.out.printf("Nodo=%d p=%d\n",currentNode.getNumber(),currentNode.getPriority()); 
+	            S.add(currentNode.getNumber()); //Agrego el nodo al conjunto S
+	            Gmst.nodes.addElement(currentNode.getNumber()); //Agrego nodo al nuevo grafo
+	            Gmst.nodes.getLastNode().addPriority(currentNode.getPriority());
+	            connections = currentNode.getConnetions(); 
+	            System.out.printf("last node=%d\n",nodes.getLastNode().getPriority()); 
+	            for(int c : connections)
+	            {
+	            	if(!S.contains(c))
+	            	{
+	            		v = nodes.findElement(c); 
+	            		e = edges.findEdge(currentNode.getNumber(), v.getNumber()); 
+	            		w = e.getWeight();
+	            		dv=v.getPriority();
+	            		du=currentNode.getPriority(); 
+	            		le=w+du; 	        
+	            		System.out.printf("Nodo encontrado=%d\n",v.getNumber()); 
+	            		if(dv>le)
+	            		{
+	            			System.out.printf("n=%d dv=%d -> dv=%d\n",v.getNumber(),dv,le); 
+	            			v.addPriority(le);	            			
+	            			q.remove(v); //Elimino al nodo de la lista para poder actualizar su valor
+	            			q.add(v);	//Actualizo el valor 
+	          
+	            		}
+	            	}
+	            	
+	            		            	
+	            }            
+	     
+	     }
+		
+	    
+		 n = S.get(0);	//Tomo el primer nodo de la lista 
+		 S.remove(0); 	//Lo elimino 
+		 addedNodes.add(n); 
+	
+		while(!S.isEmpty())
+		{
+			n = S.get(0);	//Tomo el primer nodo de la lista 
+			S.remove(0); 	//Lo elimino 
+			addedNodes.add(n); 
+			currentNode = nodes.findElement(n); 
+			connections = currentNode.getConnetions(); 
+			w=inf; 
+			node =0; 
+			for(int element : addedNodes)
+			{
+				if(connections.contains(element))
+				{
+					v = nodes.findElement(element); 
+					le = currentNode.getPriority()-v.getPriority(); //Obtengo la longitud del camino
+					e = edges.findEdge(element,n);  //Obtengo el valor del camino
+					w = e.getWeight(); 
+					if(le==w)
+					{
+						node = element; 
+						break; 
+					}
+					
+				}
+			}
+			
+			Gmst.edges.addElement(node,n);			
+			Gmst.edges.getLastEdge().addWeight(w);
+			vp = Gmst.nodes.findElement(n); 
+			//up = Gmst.nodes.findElement(node); 
+			vp.addConnetion(node);
+			//up.addConnetion(n);
+		}
+		return Gmst; 
+	}
 }

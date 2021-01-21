@@ -1,7 +1,7 @@
 
 public class Arista 
 {
-	private float weight; 
+	private int weight; 
 	private int []edge;
 	private Arista nextEdge; 
 	
@@ -12,7 +12,7 @@ public class Arista
 		edge[1] = n2; 
 	}
 	
-	public void addWeight (float w)
+	public void addWeight (int w)
 	{
 		weight = w; 
 	}
@@ -25,7 +25,7 @@ public class Arista
 		return edge; 
 	}
 	
-	public float getWeight()
+	public int getWeight()
 	{
 		return weight; 
 	}
