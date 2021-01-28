@@ -9,6 +9,7 @@ public class Vertice implements Comparable<Vertice>
 	private Vertice lastNode;	//Conexion al ancestro
 	private ArrayList<Integer> connections = new ArrayList<Integer>(); 
 	private int priority; 
+	private Vertice father; 
 	public void addConnetion(Integer node)
 	{
 		connections.add(node); 
@@ -33,6 +34,10 @@ public class Vertice implements Comparable<Vertice>
 		priority = p; 
 	}
 		
+	public void addFather(Vertice f)
+	{
+		father = f; 
+	}
 	public Integer getNumber()
 	{
 		return number; 
@@ -52,6 +57,11 @@ public class Vertice implements Comparable<Vertice>
 	public  ArrayList<Integer> getConnetions()
 	{
 		return connections;
+	}
+	
+	public Vertice getFather()
+	{
+		return father; 
 	}
 	
 	@Override

@@ -1,5 +1,5 @@
 
-public class Arista 
+public class Arista implements Comparable<Arista>
 {
 	private int weight; 
 	private int []edge;
@@ -20,7 +20,7 @@ public class Arista
 	{
 		this.nextEdge = nextEdge; 
 	}
-	public int[] getVertice()
+	public int[] getArista()
 	{
 		return edge; 
 	}
@@ -34,5 +34,20 @@ public class Arista
 	{
 		return nextEdge; 
 	}
+	
+	@Override
+	public int compareTo(Arista e) 
+	{
+        if (weight < e.getWeight()) 
+        {            
+        	return -1;
+        } else if (weight > e.getWeight()) 
+        {
+            return 1;
+        } else 
+        {
+            return 0;
+        }
+    }
 
 }

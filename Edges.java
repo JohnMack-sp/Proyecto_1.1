@@ -63,7 +63,7 @@ public class Edges
 		
 		while(currentEdge !=null)
 		{
-			v = currentEdge.getVertice(); 
+			v = currentEdge.getArista(); 
 			if((v[0] == n1 || v[0] == n2) && (v[1] == n1 || v[1] == n2))
 				break; 
 			currentEdge = currentEdge.getNextEdge();  
